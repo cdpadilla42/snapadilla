@@ -10,7 +10,7 @@ import {
 } from 'expo-camera';
 import React, { useEffect, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { getBadgeCount } from '../lib/Notifications';
+import { getBadgeCount } from '../../lib/Notifications';
 
 type CameraComponentProps = {
   onCaptureMedia: (

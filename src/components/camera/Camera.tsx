@@ -1,7 +1,7 @@
 import { CameraCapturedPicture } from 'expo-camera';
 import { useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
-import useSnapadillaStore from '../_store/useSnapadillaStore';
+import useSnapadillaStore from '../../lib/store/useSnapadillaStore';
 import CameraComponent from './CameraComponent';
 
 export default function Camera() {

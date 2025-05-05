@@ -1,12 +1,15 @@
 import { useIsFocused } from '@react-navigation/native';
 import { useCameraPermissions, useMicrophonePermissions } from 'expo-camera';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import Camera from './_camera/Camera';
+import UserView from '../components/UserView';
+import Camera from '../components/camera/Camera';
+import useSnapadillaStore from '../lib/store/useSnapadillaStore';
 
 export default function Index() {
   const isFocused = useIsFocused();
   const [cameraPermission, requestCameraPermission] = useCameraPermissions();
   const [micPermission, requestMicPermission] = useMicrophonePermissions();
+  const { user } = useSnapadillaStore();
   const permissionsGranted =
     micPermission?.granted && cameraPermission?.granted;
 
@@ -44,7 +47,7 @@ export default function Index() {
       </View>
     );
   }
-  if (isFocused) return <Camera />;
+  if (isFocused) return <>{user ? <Camera /> : <UserView />}</>;
   return <></>;
   // return <NotificationsComponent />;
 }

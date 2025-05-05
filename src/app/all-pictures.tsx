@@ -1,9 +1,9 @@
 import { Image } from 'expo-image';
 import React, { useEffect, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { getAllImages } from './_picture/aws';
-import { useReturnToCamera } from './hooks/useReturnToCamera';
-import { clearBadgeCount } from './lib/Notifications';
+import { useReturnToCamera } from '../hooks/useReturnToCamera';
+import { clearBadgeCount } from '../lib/Notifications';
+import { getAllImages } from '../lib/aws';
 
 export default function AllPictures() {
   const returnToCamera = useReturnToCamera();

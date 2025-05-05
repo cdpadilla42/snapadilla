@@ -1,18 +1,15 @@
 import { Image } from 'expo-image';
 import { SaveFormat, useImageManipulator } from 'expo-image-manipulator';
-import { useRouter } from 'expo-router';
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { uploadFile } from './_picture/aws';
-import VideoScreen from './_picture/Video';
-import useSnapadillaStore from './_store/useSnapadillaStore';
-import { useReturnToCamera } from './hooks/useReturnToCamera';
-
-const isMajor16 = (ver: string | null) => ver && /^16\./.test(ver);
+import { Button, Text, View } from 'react-native';
+import VideoScreen from '../components/Preview/Video';
+import { useReturnToCamera } from '../hooks/useReturnToCamera';
+import { uploadFile } from '../lib/aws';
+import useSnapadillaStore from '../lib/store/useSnapadillaStore';
+import { pageLayoutStyles } from '../styles/pageLayoutStyles';
 
 export default function ImagePreview() {
   const { setUri, setUriType, uri, uriType } = useSnapadillaStore();
-  const router = useRouter();
   const [sending, setSending] = React.useState(false);
   const [sent, setSent] = React.useState(false);
   const context = useImageManipulator(uri);
@@ -52,10 +49,10 @@ export default function ImagePreview() {
 
   const getStateElement = () => {
     if (sending) {
-      return <Text style={styles.textStyle}>Sending...</Text>;
+      return <Text style={pageLayoutStyles.textStyle}>Sending...</Text>;
     }
     if (sent) {
-      return <Text style={styles.textStyle}>Sent!</Text>;
+      return <Text style={pageLayoutStyles.textStyle}>Sent!</Text>;
     }
     return (
       <>
@@ -83,28 +80,9 @@ export default function ImagePreview() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={pageLayoutStyles.container}>
       {renderPreview()}
-      <View style={styles.textContainer}>{getStateElement()}</View>
+      <View style={pageLayoutStyles.textContainer}>{getStateElement()}</View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textContainer: {
-    marginTop: 20,
-    maxWidth: 300,
-    height: 50,
-  },
-  textStyle: {
-    fontSize: 16,
-    fontStyle: 'italic',
-    textAlign: 'center',
-  },
-});
